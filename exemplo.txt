@@ -1,0 +1,23 @@
+# Use a imagem base desejada
+FROM nome_da_sua_imagem_base
+
+# Atualizar o índice de pacotes e instalar dependências necessárias
+RUN apt-get update && apt-get install -y wget gnupg
+
+# Adicionar a chave de assinatura do repositório InfluxData
+RUN wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add -
+
+# Adicionar o repositório do Telegraf ao apt
+RUN echo "deb https://repos.influxdata.com/debian buster stable" | tee /etc/apt/sources.list.d/influxdb.list
+
+# Atualizar novamente o índice de pacotes e instalar o Telegraf
+RUN apt-get update && apt-get install -y telegraf
+
+# Copiar o arquivo de configuração personalizado, se necessário
+# COPY telegraf.conf /etc/telegraf/telegraf.conf
+
+# Expor a porta, se necessário
+# EXPOSE 8125/udp
+
+# Comando padrão para iniciar o Telegraf quando o contêiner for iniciado
+CMD ["telegraf"]

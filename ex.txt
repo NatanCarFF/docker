@@ -1,0 +1,23 @@
+# Use Debian as base image
+FROM debian:latest
+
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y wget gnupg2 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Telegraf
+RUN wget -qO- https://repos.influxdata.com/influxdb.key | apt-key add - && \
+    echo "deb https://repos.influxdata.com/debian buster stable" | tee /etc/apt/sources.list.d/influxdb.list && \
+    apt-get update && \
+    apt-get install -y telegraf && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy telegraf config
+COPY telegraf.conf /etc/telegraf/telegraf.conf
+
+# Expose telegraf port (if needed)
+# EXPOSE 8125/udp
+
+# Start telegraf service
+CMD ["telegraf", "--config", "/etc/telegraf/telegraf.conf"]
