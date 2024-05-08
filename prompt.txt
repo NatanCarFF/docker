@@ -3,3 +3,6 @@ crie um arquivo dockerfile com as regras abaixo:
 > imagem Debian
 > códigos necessários
 > telegraf instalado na base
+
+
+echo "deb https://repos.influxdata.com/debian buster stable" | tee /etc/apt/sources.list.d/influxdb.lis
