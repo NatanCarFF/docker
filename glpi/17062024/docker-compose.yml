@@ -11,10 +11,9 @@ services:
       MYSQL_DATABASE: glpi
       MYSQL_USER: glpi
       MYSQL_PASSWORD: glpi_password
-      TZ: "America/Para"
+      TZ: "America/Belem"
     volumes:
       - db_data:/var/lib/mysql
-      # Adicionar volume para os dados de fuso horário do MySQL
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
