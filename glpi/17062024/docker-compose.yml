@@ -11,11 +11,9 @@ services:
       MYSQL_DATABASE: glpi
       MYSQL_USER: glpi
       MYSQL_PASSWORD: glpi_password
-      TZ: "America/Belem"
+      TZ: "America/Para"
     volumes:
       - db_data:/var/lib/mysql
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
 
   glpi:
     build: .
