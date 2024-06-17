@@ -3,7 +3,7 @@ FROM debian:12
 
 # Instalar dependências necessárias
 RUN apt-get update && \
-    apt-get install -y apache2 libapache2-mod-php php php-mysql php-curl php-gd php-mbstring php-xml php-ldap php-imap php-apcu php-xmlrpc php-cas php-intl php-zip php-bz2 php-json php-ldap wget unzip && \
+    apt-get install -y apache2 libapache2-mod-php php php-mysql php-curl php-gd php-mbstring php-xml php-ldap php-imap php-apcu php-xmlrpc php-cas php-intl php-zip php-bz2 php-json wget unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
