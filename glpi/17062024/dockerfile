@@ -8,9 +8,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Baixar e descompactar o GLPI
-RUN wget https://github.com/glpi-project/glpi/releases/download/10.0.15/glpi-10.0.15.tgz && \
-    tar -xzf glpi-10.0.15.tgz && \
-    mv glpi /var/www/html/glpi && \
+RUN wget -O /tmp/glpi.tgz https://github.com/glpi-project/glpi/releases/download/10.0.15/glpi-10.0.15.tgz && \
+    tar -xzf /tmp/glpi.tgz -C /var/www/html && \
     mv /var/www/html/glpi/files /var/lib/glpi && \
     chown -R www-data:www-data /var/www/html/glpi /var/lib/glpi && \
     chmod -R 755 /var/www/html/glpi /var/lib/glpi
@@ -22,8 +21,9 @@ COPY glpi-apache-config.conf /etc/apache2/sites-available/000-default.conf
 # Ativar o módulo rewrite do Apache
 RUN a2enmod rewrite
 
-# Configurar PHP para definir session.cookie_httponly como On
-RUN echo "session.cookie_httponly = On" >> /etc/php/$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')/apache2/php.ini
+# Configurar PHP para definir session.cookie_httponly e session.cookie_secure
+RUN echo "session.cookie_httponly = On" >> /etc/php/$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')/apache2/php.ini && \
+    echo "session.cookie_secure = On" >> /etc/php/$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')/apache2/php.ini
 
 # Expor a porta 80
 EXPOSE 80
