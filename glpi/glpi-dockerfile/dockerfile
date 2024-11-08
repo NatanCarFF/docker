@@ -1,7 +1,7 @@
 FROM debian:12
-LABEL maintainer="infraestrutura@wlanfibra.com.br"
-ENV GLPI_VERSION 10.0.15
-ENV LAST_RELEASE 10.0.15
+LABEL maintainer="email@email.com"
+ENV GLPI_VERSION 10.0.17
+ENV LAST_RELEASE 10.0.17
 
 ENV PATH="/opt/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
